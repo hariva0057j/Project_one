@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const absentInput = document.getElementById('absent');
     const resetBtn = document.getElementById('resetBtn');
     const resultsContainer = document.getElementById('resultsContainer');
+    const thresholdInput = document.getElementById('threshold');
 
     // Auto-calculate absent classes
     function autoCalculateAbsent() {
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const total = parseInt(totalClassesInput.value);
         const attended = parseInt(attendedInput.value);
         const absent = parseInt(absentInput.value);
+        const desiredThreshold = parseInt(thresholdInput.value) || 75; // Default to 75 if not set
 
         if (!total || total <= 0) {
             alert('Please enter a valid number of total classes');
@@ -57,20 +59,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const attendancePercentage = (attended / total) * 100;
-        const requiredPercentage = 75;
         
         let statusClass, statusIcon, statusMessage;
         let recoverySection = '';
         let skipSection = '';
 
-        // Determine status
-        if (attendancePercentage >= requiredPercentage) {
+        // Determine status based on custom threshold
+        if (attendancePercentage >= desiredThreshold) {
             statusClass = 'good';
             statusIcon = '🎉';
-            statusMessage = '✅ Excellent! Your attendance is above the required 75%';
+            statusMessage = `✅ Excellent! Your attendance is above the required ${desiredThreshold}%`;
             
-            // Calculate how many classes can be skipped while maintaining 75%
-            const classesCanSkip = Math.floor(attended / 0.75 - total);
+            // Calculate how many classes can be skipped while maintaining threshold%
+            const classesCanSkip = Math.floor(attended / (desiredThreshold/100) - total);
             
             if (classesCanSkip > 0) {
                 skipSection = `
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             🎯 Freedom Calculator
                         </div>
                         <div class="skip-classes">
-                            You can skip up to <strong>${classesCanSkip}</strong> upcoming classes and still maintain 75% attendance!
+                            You can skip up to <strong>${classesCanSkip}</strong> upcoming classes and still maintain ${desiredThreshold}% attendance!
                         </div>
                         <div class="skip-warning">
                             ⚠️ <strong>Use Wisely:</strong> This is your maximum buffer - consider saving some for emergencies!
@@ -101,26 +102,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
             }
-        } else if (attendancePercentage >= 65) {
+        } else if (attendancePercentage >= (desiredThreshold - 10)) {
             statusClass = 'warning';
             statusIcon = '⚠️';
-            statusMessage = '⚠️ Need Improvement - You can still reach 75%!';
+            statusMessage = `⚠️ Need Improvement - You can still reach ${desiredThreshold}%!`;
         } else {
             statusClass = 'danger';
             statusIcon = '🚨';
             statusMessage = '🚨 Critical - Immediate action needed!';
         }
 
-        // Calculate classes needed to reach 75% (for low attendance)
-        if (attendancePercentage < requiredPercentage) {
-            const classesNeeded = Math.ceil((0.75 * total - attended) / 0.25);
+        // Calculate classes needed to reach desired threshold
+        if (attendancePercentage < desiredThreshold) {
+            const classesNeeded = Math.ceil((desiredThreshold/100 * total - attended) / (1 - desiredThreshold/100));
             recoverySection = `
                 <div class="recovery-section">
                     <div class="recovery-title">
                         🎯 Path to Recovery
                     </div>
                     <div class="needed-classes">
-                        To reach 75% attendance, you need <strong>${classesNeeded}</strong> consecutive classes without any absences.
+                        To reach ${desiredThreshold}% attendance, you need <strong>${classesNeeded}</strong> consecutive classes without any absences.
                     </div>
                     <div class="alternatives">
                         <h4>💡 Alternative approaches:</h4>
