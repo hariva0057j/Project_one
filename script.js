@@ -175,10 +175,24 @@ document.addEventListener('DOMContentLoaded', function() {
         resultsContainer.style.display = 'block';
 
         // Smooth scroll to results
-        resultsContainer.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
-        });
+        setTimeout(() => {
+            const yOffset = -20; // Offset from the top to account for padding
+            const element = document.getElementById('resultsContainer');
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+            window.scrollTo({
+                top: y,
+                behavior: 'smooth'
+            });
+
+            // Fallback for iOS Safari and other problematic mobile browsers
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                // Force scroll after a tiny delay if smooth scroll fails
+                setTimeout(() => {
+                    window.scrollTo(0, y);
+                }, 100);
+            }
+        }, 100); // Small delay to ensure content is rendered
     }
 
     // Add some interactive effects
