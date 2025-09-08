@@ -194,6 +194,18 @@ body {
     font-weight: 600;
 }
 
+.input-group input[type="number"]#threshold {
+    background: linear-gradient(135deg, #fff6f6 0%, #ffe6e6 100%);
+    border-color: #ff6b6b;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.input-group input[type="number"]#threshold:focus {
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
 .button-group {
     display: flex;
     gap: 15px;
