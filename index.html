@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassTrack Pro - Attendance Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+    <img src="quirky-classtrack-logo.png" alt="ClassTrack Pro" class="logo-image">
+    <h1>AttendanceWiz</h1>
+</div>
+            <p class="subtitle">Keep track of your attendance and stay above 75%</p>
+        </header>
+
+        <div class="calculator-card">
+            <div class="calc-header">
+                <h2>Calculate Your Attendance</h2>
+                <p>Enter your class details below</p>
+            </div>
+            
+            <form class="calc-form" id="attendanceForm">
+                <div class="input-group">
+                    <label for="totalClasses">Total Classes Held</label>
+                    <input type="number" id="totalClasses" placeholder="Enter total classes" min="1" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="attended">Classes Attended</label>
+                    <input type="number" id="attended" placeholder="Enter classes attended" min="0" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="absent">Classes Absent</label>
+                    <input type="number" id="absent" placeholder="Auto-calculated" readonly>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-calculate">Calculate</button>
+                    <button type="button" class="btn-reset" id="resetBtn">Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="results-container" id="resultsContainer" style="display: none;">
+            <!-- Results will be dynamically inserted here -->
+        </div>
+
+                <footer class="footer">
+            Stay consistent with your attendance and succeed!
+        </footer>
+        
+        <div class="developer-credit">
+            <p>Made with <span class="heart">♥</span> by a student, for students</p>
+        </div>
+    </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
