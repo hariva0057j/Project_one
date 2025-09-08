@@ -13,7 +13,7 @@
     <img src="quirky-classtrack-logo.png" alt="ClassTrack Pro" class="logo-image">
     <h1>AttendanceWiz</h1>
 </div>
-            <p class="subtitle">Keep track of your attendance and stay above 75%</p>
+            <p class="subtitle">Keep track of your attendance</p>
         </header>
 
         <div class="calculator-card">
@@ -22,6 +22,11 @@
                 <p>Enter your class details below</p>
             </div>
             
+            <div class="input-group">
+        <label for="threshold">Desired Attendance Threshold (%)</label>
+        <input type="number" id="threshold" placeholder="Enter threshold (e.g. 75)" min="0" max="100" value="75">
+    </div>
+    
             <form class="calc-form" id="attendanceForm">
                 <div class="input-group">
                     <label for="totalClasses">Total Classes Held</label>
